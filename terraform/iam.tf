@@ -43,4 +43,17 @@ data "aws_iam_policy_document" "main_policy" {
     actions   = ["ecr:GetAuthorizationToken"]
     resources = ["*"]
   }
+
+  # `docker push` に必要
+  statement {
+    effect = "Allow"
+    actions = [
+      "ecr:CompleteLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:InitiateLayerUpload",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:PutImage",
+    ]
+    resources = [aws_ecr_repository.main.arn]
+  }
 }
