@@ -1,0 +1,8 @@
+terraform {
+  backend "s3" {
+    bucket  = "" # TODO
+    region  = "us-east-1"
+    key     = "github-actions-ecr-push-example/terraform.tfstate"
+    encrypt = true
+  }
+}
