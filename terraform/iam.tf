@@ -32,6 +32,7 @@ data "aws_iam_policy_document" "main_assume_role_policy" {
 }
 
 resource "aws_iam_role_policy" "main" {
+  name   = "allow-ecr-push-image"
   role   = aws_iam_role.main.name
   policy = data.aws_iam_policy_document.main_policy.json
 }
