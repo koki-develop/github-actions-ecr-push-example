@@ -11,7 +11,14 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v3
+
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-east-1
-          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+          aws-region: us-east-1 # リージョン
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }} # GitHub Actions 用の IAM ロールの ARN
+
+      # NOTE: ECR Public の場合は `with.registry-type: public` を指定する
+      - uses: aws-actions/amazon-ecr-login@v1
+        id: login-ecr
+        # with:
+        #   registry-type: public
