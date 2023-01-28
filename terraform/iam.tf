@@ -30,3 +30,17 @@ data "aws_iam_policy_document" "main_assume_role_policy" {
     }
   }
 }
+
+resource "aws_iam_role_policy" "main" {
+  role   = aws_iam_role.main.name
+  policy = data.aws_iam_policy_document.main_policy.json
+}
+
+data "aws_iam_policy_document" "main_policy" {
+  # ECR Login に必要
+  statement {
+    effect    = "Allow"
+    actions   = ["ecr:GetAuthorizationToken"]
+    resources = ["*"]
+  }
+}
